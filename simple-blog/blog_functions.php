@@ -5,14 +5,14 @@
 // 2.0
 // ---------------
 
-function get_all_pages($path){
-    $path_content = scandir($path);
+function get_all_pages($path, $md_converter){
+    $files = scandir($path);
     $mds = [];
     $pages = [];
 
-    foreach($path_content as $content){
-        if(preg_match('/.md/', $content)){
-            $mds[] = $content;
+    foreach($files as $file){
+        if(preg_match('/.md/', $file)){
+            $mds[] = $file;
         }
     }
 
@@ -20,7 +20,7 @@ function get_all_pages($path){
         $md_content = file_get_contents("{$path}/{$md}");
         $md_name = str_replace('.md', '', $md);
 
-        $pages[] = new Page($md_content, $md_name);
+        $pages[] = new Page($md_content, $md_name, $md_converter);
     }
 
     return $pages;

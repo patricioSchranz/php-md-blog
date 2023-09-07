@@ -1,10 +1,23 @@
-<div class="meta">
-    <div class="author">Lee Perry</div>
-    <div class="creation-date">30.08.2023</div>
-</div>
+Chuck Norris
+{.author}
+
+07.09.2023
+{.creation-date}
+
+Frontend Development
+{.category}
+
+JavaScript
+{.sub-category}
+
+- \# JavaScript
+- \# Objects 
+- \# Basics
+{.hashtags}
 
 # TEST
 
 Hello World
+{.first-paragraph}
 
 **Hello**

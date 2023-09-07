@@ -1,5 +1,37 @@
 <?php
 
+
+// ---------------
+// 2.0
+// ---------------
+
+function get_all_pages($path){
+    $path_content = scandir($path);
+    $mds = [];
+    $pages = [];
+
+    foreach($path_content as $content){
+        if(preg_match('/.md/', $content)){
+            $mds[] = $content;
+        }
+    }
+
+    foreach($mds as $md){
+        $md_content = file_get_contents("{$path}/{$md}");
+        $md_name = str_replace('.md', '', $md);
+
+        $pages[] = new Page($md_content, $md_name);
+    }
+
+    return $pages;
+}
+
+
+
+// ---------------
+// 1.0
+// ---------------
+
 function convert_to_html($page){
     
 }
@@ -16,6 +48,7 @@ function get_all_markdowns($path){
 
     return $mds;
 }
+
 
 function get_all_metadatas($path, $md_converter, $patterns){
     $mds = get_all_markdowns($path);

@@ -4,40 +4,46 @@ require __DIR__ . '/../layout/header.view.php'
 
 ?>
 
+<!-- HEADER -->
 <header>
     <h1>A SIMPLE BLOG</h1>
 
-    <?php echo count($snippets) ?>
-    <pre>
-        <!-- <?php var_dump($pages) ?> -->
-    </pre>
-    
+    <!-- CATEGORIES -->
+    <figure>
+        <figcaption>Categories</figcaption>
+        <ul>
+            <?php foreach($categories as $category){ ?>
+                <li>
+                    <a href="?post=<?php echo urlencode($category) ?>"><?= $category ?></a>
+                </li>
+            <?php } ?>
+        </ul>
+    </figure>
 
-    <ul>
-       <?php 
-            // foreach($snippets as $snippet){
-            //     foreach($snippet as $snippet_entry){
-            //        foreach($snippet_entry as $entry_value){
-            //             echo $entry_value;
-            //        }
-            //     }
-            // }
-
-         foreach($pages as $page){
-            // var_dump($page->snippet);
-         }
-       
-       ?>
-    </ul>
+    <!-- SUB CATEGORIES -->
+    <figure>
+        <figcaption>Sub Categories</figcaption>
+        <ul>
+            <?php foreach($sub_categories as $sub_category){ ?>
+                <li>
+                    <a href="?post=<?php echo urlencode($sub_category) ?>"><?= $sub_category ?></a>
+                </li>
+            <?php } ?>
+        </ul>
+    </figure>
 </header>
 
+<!-- MAIN / ARCHIVE -->
 <main>
     <?php foreach($pages as $page) : ?>
-         <article class="page-card">
+
+        <!-- ARCHIVE CARD -->
+         <article class="archive-card">
             <header>
                 <p class="page-card_title"><?php echo $page->name ?></p>
             </header>
          </article>
+
     <?php endforeach; ?>
 </main>
 

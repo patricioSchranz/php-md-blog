@@ -1,9 +1,15 @@
 <?php
 
-
 // ---------------
 // 2.0
 // ---------------
+
+function dump($value, $title = '---'){
+    echo "<h1>$title</h1>";
+    echo '<pre>';
+    var_dump($value);
+    echo '</pre>';
+}
 
 function get_all_pages($path, $md_converter){
     $files = scandir($path);

@@ -1,8 +1,8 @@
 <?php
 
-// ---------------
-// 2.0
-// ---------------
+// ***************************
+// COMMON FUNCTIONS
+//
 
 function dump($value, $title = '---'){
     echo "<h1>$title</h1>";
@@ -10,6 +10,11 @@ function dump($value, $title = '---'){
     var_dump($value);
     echo '</pre>';
 }
+
+
+// ***************************
+// POST FUNCTIONS
+//
 
 function get_all_pages($path, $md_converter){
     $files = scandir($path);
@@ -32,6 +37,54 @@ function get_all_pages($path, $md_converter){
     return $pages;
 }
 
+
+function get_all_snippets($pages){
+    $snippets = [];
+
+    foreach($pages as $page){
+        $snippet = $page->get_snippet();
+    
+        $snippets[] = $snippet;
+    }
+
+    return $snippets;
+}
+
+
+function get_blog_metas($snippets){
+    $categories = [];
+    $sub_categories = [];
+    $hashtags = [];
+    $authors = [];
+    $creation_dates = [];
+
+    foreach($snippets as $snippet){
+
+        $category = $snippet['category'][1];
+        $sub_category = $snippet['sub_category'][1];
+        $author = $snippet['author'][1];
+        $creation_date = $snippet['creation_date'][1];
+    
+        if(!in_array($category, $categories) ) { $categories[] = $category; }
+        if(!in_array($sub_category, $sub_categories) ) { $sub_categories[] = $sub_category; }
+        if(!in_array($author, $authors) ) { $authors[] = $author; }
+        if(!in_array($creation_date, $creation_dates) ) { $creation_dates[] = $creation_date; }
+    
+        $all_hashtags = $snippet['hashtags'][1];
+    
+        foreach($all_hashtags as $hashtag){
+            if(!in_array($hashtag, $hashtags)){ $hashtags[] = $hashtag ; }
+        }
+    }
+
+    return [
+        'categories' => $categories,
+        'sub_categories' => $sub_categories,
+        'hashtags' => $hashtags,
+        'authors' => $authors,
+        'creation_dates' => $creation_dates
+    ];
+}
 
 
 // ---------------

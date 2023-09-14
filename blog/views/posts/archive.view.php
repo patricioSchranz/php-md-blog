@@ -2,7 +2,34 @@
 
 require __DIR__ . '/../layout/header.view.php';
 
-$offset = 1;
+
+// print($last_page);
+
+$filtered_pages;
+
+print(count($pages));
+
+if(isset($_GET['archive'])){
+    $searched_meta = $_GET['archive'];
+    $searched_term = $_GET['term'];
+
+
+   $filtered_pages = array_filter($pages, function ($page) {
+        global $searched_meta;
+        global $searched_term;
+
+        $category_term = $page->snippet[$searched_meta][1];
+
+        if($category_term === $searched_term){  return $page; }
+       
+    });
+
+    $pages = $filtered_pages;
+
+}
+
+
+$offset = 0;
 $limit = 2;
 $page_count;
 
@@ -11,7 +38,9 @@ $pagination_limit = 3;
 
 $last_page = ceil((count($pages) / $limit));
 
-// print($last_page);
+
+
+print(count($pages));
 
 if (!isset ($_GET['page']) ) {  
     $page_count = 1;  
@@ -20,9 +49,8 @@ if (!isset ($_GET['page']) ) {
 else {  
     $page_count = (int) $_GET['page']; 
     $pagination_number = (int) $_GET['page' ];
-    $offset = $_GET['page' ] == 1 
-        ? (int) $_GET['page'] -1 
-        : (int) $_GET['page'];
+    $offset = ((int) $_GET['page'] * $limit) - $limit;
+
 
     if($pagination_number > $last_page ){
         $pagination_number = 1;  
@@ -37,6 +65,9 @@ usort($pages, function($a, $b) {
 // foreach($pages as $page){
 //    dump($page->snippet['creation_date'][1]);
 // }
+
+print($offset);
+// print($limit);
 
 $page_selection = array_slice($pages, $offset, $limit);
 
@@ -99,8 +130,19 @@ $page_selection = array_slice($pages, $offset, $limit);
     <div class="pagination-container">
 
         <?php if ($page_count > 1) : ?>
-            <a href="?page=<?php echo $page_count - 1 ; ?>">Previous</a>
 
+            <?php if(count($_GET) < 2) : ?>
+                <a href="?page=<?php echo $page_count - 1 ; ?>">Previous</a>
+
+            <?php else :?> 
+                <?php 
+                    $params  = array_merge( $_GET, array( 'page' => $page_count - 1 ) ); 
+                    $new_query_string = http_build_query( $params );
+                ?>
+                <a href="?<?= $new_query_string ?>">Previous</a>
+
+            <?php endif; ?>
+                
             <?php else : ?>
             <a href="#">Previous</a>
 
@@ -162,7 +204,7 @@ $page_selection = array_slice($pages, $offset, $limit);
         <ul>
             <?php foreach($categories as $category){ ?>
                 <li>
-                    <a href="?archive=<?php echo urlencode($category) ?>"><?= $category ?></a>
+                    <a href="?archive=category&term=<?php echo urlencode($category) ?>"><?= $category ?></a>
                 </li>
             <?php } ?>
         </ul>

@@ -9,7 +9,7 @@
     <!-- <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css"> -->
 
     <style>
-        main{
+        .main{
             width: 40rem;
             /* border: 1px solid black; */
             /* margin-left: auto;
@@ -59,6 +59,38 @@
             display: flex;
             justify-content: space-between;
             padding: 1rem;
+        }
+
+        .hidden{
+            display: none;
+        }
+
+        figure.hashtags figcaption{
+            background-color: initial;
+            box-shadow: initial;
+            text-align: left;
+            color: #415462;
+            padding: initial;
+        }
+
+        figure.hashtags ul li{
+            text-align: left;
+            list-style: none;
+        }
+
+        figure img{
+            display: block;
+            width: 98%;
+            height: 15rem;
+            object-fit: cover;
+            /* object-position: top; */
+            margin: auto;
+        }
+
+        .last-pagination-elem{
+            background-color: #415462;
+            color: white;
+            padding: .3rem;
         }
     </style>
 </head>

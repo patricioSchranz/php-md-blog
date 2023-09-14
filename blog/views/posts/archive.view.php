@@ -1,6 +1,28 @@
 <?php
 
-require __DIR__ . '/../layout/header.view.php'
+require __DIR__ . '/../layout/header.view.php';
+
+$offset = 1;
+$limit = 2;
+$page_count;
+
+$pagination_number;
+$pagination_limit = 4;
+
+if (!isset ($_GET['page']) ) {  
+    $page_count = 1;  
+    $pagination_number = 1;
+} 
+else {  
+    $page_count = (int) $_GET['page']; 
+    $pagination_number = (int) $_GET['page' ];
+
+    if($pagination_number >= (count($pages) / $limit) ){
+        $pagination_number = (count($pages) / $limit);  
+    }
+   
+}  
+
 
 ?>
 
@@ -11,16 +33,51 @@ require __DIR__ . '/../layout/header.view.php'
 
 <!-- MAIN / ARCHIVE -->
 <main>
+    <h2>Page <?= $page_count ?> </h2>
+    
     <?php foreach($pages as $page) : ?>
 
         <!-- ARCHIVE CARD -->
          <article class="archive-card">
             <header>
-                <p class="page-card_title"><?php echo $page->name ?></p>
+                <p class="page-card_title"><?php echo $page->post_title ?></p>
             </header>
          </article>
 
     <?php endforeach; ?>
+
+    <!-- PAGINATION --> 
+    <div class="pagination-container">
+        <a href="?page=<?php echo $page_count - 1 ; ?>">Previous</a>
+
+        <?php 
+
+            $loop_count = 1;
+         
+            for($i = 1; $i < count($pages); $i+= $limit){
+
+                if($loop_count <= $pagination_limit){
+                    echo "<a href='?page=$pagination_number'>$pagination_number</a>";
+                    $loop_count++;
+
+                    if($pagination_number < (count($pages) / $limit)){
+                        $pagination_number++;
+                    }
+                    else{
+                        $pagination_number = 1; 
+                    }
+                    
+                }
+                else{
+                    echo '...';
+                    break;
+                }
+            
+            }
+        ?>
+
+        <a href="?page=<?php echo $page_count + 1; ?>">Next</a>
+    </div>
 </main>
 
 

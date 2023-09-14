@@ -9,6 +9,8 @@ class Page {
     public $content;
     public $name;
     public $converter;
+    public $post_title;
+    public $id;
     
     protected $patterns = [
         'author' => '#<p class="author">(.+?)</p>#',
@@ -17,13 +19,15 @@ class Page {
         'category' => '/<p class="category">(.*?)<\/p>/s',
         'sub_category' => '/<p class="sub-category">(.*?)<\/p>/s',
         'hashtags' => '/<ul class="hashtags">(.*?)<\/ul>/s',
-        'first_paragraph' => '/<p class="first-paragraph">(.*?)<\/p>/s'
+        'first_paragraph' => '/<p class="first-paragraph">(.*?)<\/p>/s',
+        'title' =>' /<p class="title">(.*?)<\/p>/s'
     ];
 
-    function __construct($md_content, $md_name, $converter){
+    function __construct($md_content, $md_name, $converter, $id){
         $this->md_content = $md_content;
         $this->name = $md_name;
         $this->converter = $converter;
+        $this->id = $id;
     }
 
     public function get_html_content($md, $converter){
@@ -59,12 +63,16 @@ class Page {
                 }
            
             }
+            else if($pattern_name === 'title'){
+                $this->post_title = $extracted[1];
+                $this->snippet[$pattern_name] = $extracted;
+            }
             else{
                 $this->snippet[$pattern_name] = $extracted;
             }
-
-
         }
+
+        $this->snippet['id'] = $this->id;
 
         return $this->snippet;
     }

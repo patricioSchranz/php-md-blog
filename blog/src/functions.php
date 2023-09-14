@@ -20,6 +20,7 @@ function get_all_pages($path, $md_converter){
     $files = scandir($path);
     $mds = [];
     $pages = [];
+    $id = 0;
 
     foreach($files as $file){
         if(preg_match('/.md/', $file)){
@@ -28,10 +29,11 @@ function get_all_pages($path, $md_converter){
     }
 
     foreach($mds as $md){
+        $id++;
         $md_content = file_get_contents("{$path}/{$md}");
         $md_name = str_replace('.md', '', $md);
 
-        $pages[] = new Page($md_content, $md_name, $md_converter);
+        $pages[] = new Page($md_content, $md_name, $md_converter, $id);
     }
 
     return $pages;
@@ -71,7 +73,7 @@ function get_blog_metas($snippets){
         if(!in_array($creation_date, $creation_dates) ) { $creation_dates[] = $creation_date; }
     
         $all_hashtags = $snippet['hashtags'][1];
-    
+
         foreach($all_hashtags as $hashtag){
             if(!in_array($hashtag, $hashtags)){ $hashtags[] = $hashtag ; }
         }

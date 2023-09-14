@@ -12,8 +12,9 @@
         main{
             width: 40rem;
             /* border: 1px solid black; */
-            margin-left: auto;
-            margin-right: auto;
+            /* margin-left: auto;
+            margin-right: auto; */
+            margin-left: 11%;
         }
 
         aside{
@@ -41,8 +42,9 @@
 
         .page-container > header{
             width: 100%;
-            text-align: center;
+            /* text-align: center; */
             /* border: 1px solid black; */
+            padding-left: 11%;
         }
 
         .page-container{
@@ -50,6 +52,13 @@
             justify-content: space-between;
             flex-wrap: wrap;
             /* border: 5px solid green; */
+        }
+
+        .pagination-container{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
         }
     </style>
 </head>

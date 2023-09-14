@@ -15,6 +15,9 @@ JavaScript
 - \# Basics
 {.hashtags}
 
+I`m the title 2
+{.title}
+
 # TEST
 
 Hello World

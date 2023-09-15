@@ -3,11 +3,9 @@
 require __DIR__ . '/../layout/header.view.php';
 
 
-// print($last_page);
-
 $filtered_pages;
 
-print(count($pages));
+$all_posts_count = count($pages);
 
 if(isset($_GET['archive'])){
     $searched_meta = $_GET['archive'];
@@ -28,9 +26,11 @@ if(isset($_GET['archive'])){
 
 }
 
+$selected_posts_count = count($pages);
+
 
 $offset = 0;
-$limit = 2;
+$limit = 4;
 $page_count;
 
 $pagination_number;
@@ -38,9 +38,8 @@ $pagination_limit = 3;
 
 $last_page = ceil((count($pages) / $limit));
 
+// print($last_page);
 
-
-print(count($pages));
 
 if (!isset ($_GET['page']) ) {  
     $page_count = 1;  
@@ -66,7 +65,7 @@ usort($pages, function($a, $b) {
 //    dump($page->snippet['creation_date'][1]);
 // }
 
-print($offset);
+// print($offset);
 // print($limit);
 
 $page_selection = array_slice($pages, $offset, $limit);
@@ -77,6 +76,13 @@ $page_selection = array_slice($pages, $offset, $limit);
 <!-- HEADER -->
 <header>
     <h1>A SIMPLE BLOG</h1>
+
+    <p>
+        <span>This blog has <?= $all_posts_count ?> posts </span>
+        <span>/</span>
+        <span>You have <?= $selected_posts_count ?> selected</span>
+    </p>
+   
 </header>
 
 
@@ -84,7 +90,23 @@ $page_selection = array_slice($pages, $offset, $limit);
 <!-- MAIN / ARCHIVE -->
 <section class="main" role="main">
     <h2>Page <?= $page_count ?> </h2>
-    
+    <p>
+
+        <?php if($page_count != $last_page) : ?>
+            <strong>Post <?= $offset + 1 ?> - <?= ($offset +1)  + ($limit - 1) ?></strong>
+
+            <?php else : ?>
+                <?php 
+                    $posts_per_page = count($pages) / (count($pages) / $limit);
+                    $last_page_posts_count = $selected_posts_count - $posts_per_page * ($page_count - 1);
+                ?>
+
+                <strong>Post <?= $offset + 1 ?> - <?= $offset + $last_page_posts_count ?></strong>
+
+        <?php endif; ?>
+        
+    </p>
+
     <?php foreach($page_selection as $page) : ?>
 
         <!-- ARCHIVE CARD -->
@@ -152,16 +174,26 @@ $page_selection = array_slice($pages, $offset, $limit);
         <?php 
 
             $loop_count = 1;
-         
+
+       
             for($i = 1; $i < count($pages); $i+= $limit){
 
                 if($loop_count <= $pagination_limit){
 
-                    if($pagination_number == $last_page){
-                        echo "<a href='?page=$pagination_number' class='last-pagination-elem'>$pagination_number</a>";
+                    if(count($_GET) < 2) {
+                        $query_string = "page=$pagination_number"; 
                     }
                     else{
-                        echo "<a href='?page=$pagination_number'>$pagination_number</a>";
+                        $params  = array_merge( $_GET, array( 'page' => $pagination_number ) ); 
+                        $query_string = http_build_query( $params ); 
+                    }
+
+                   
+                    if($pagination_number == $last_page){
+                        echo "<a href='?$query_string' class='last-pagination-elem'>$pagination_number</a>";
+                    }
+                    else{
+                        echo "<a href='?$query_string'>$pagination_number</a>";
                     }
                     
                     $loop_count++;
@@ -198,6 +230,9 @@ $page_selection = array_slice($pages, $offset, $limit);
 <!-- SIDEBAR -->
 <aside>
     <h3 class="hidden">Sidebar</h3>
+
+    <a href="blog.php" class="all-posts">All Posts</a>
+
     <!-- CATEGORIES -->
     <figure>
         <figcaption>Categories</figcaption>

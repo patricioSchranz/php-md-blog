@@ -9,6 +9,23 @@
     <!-- <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css"> -->
 
     <style>
+
+        .page-container > header{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* padding-right: 1rem; */
+        }
+
+        .page-container > header p {
+            padding: .5rem;
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .page-container > header  span {
+            margin: .5rem;
+        }
+
         .main{
             width: 40rem;
             /* border: 1px solid black; */
@@ -91,6 +108,17 @@
             background-color: #415462;
             color: white;
             padding: .3rem;
+        }
+
+        .all-posts{
+            display: block;
+            background-color: white;
+            color: deeppink;
+            width: 80%;
+            padding: .5rem 1rem;
+            text-align: center;
+            margin: 1rem auto;
+            border: 1px solid  #415462;
         }
     </style>
 </head>

@@ -26,6 +26,7 @@
             margin: .5rem;
         }
 
+
         .main{
             width: 40rem;
             /* border: 1px solid black; */
@@ -38,6 +39,10 @@
             width: 20rem;
             /* border: 1px solid black; */
             background-color: #FDFDFD;
+        }
+
+        .main >  h2  span {
+            font-size: 1rem;
         }
 
         /* figure{

@@ -4,6 +4,7 @@ require __DIR__ . '/../layout/header.view.php';
 
 
 $filtered_pages;
+$filter;
 
 $all_posts_count = count($pages);
 
@@ -11,10 +12,27 @@ if(isset($_GET['archive'])){
     $searched_meta = $_GET['archive'];
     $searched_term = $_GET['term'];
 
-
-   $filtered_pages = array_filter($pages, function ($page) {
+    $filtered_pages = array_filter($pages, function ($page) {
         global $searched_meta;
         global $searched_term;
+
+        if($searched_meta === 'hashtags'){
+           $page_hashtags = $page->snippet[$searched_meta][1];
+
+           dump($page_hashtags);
+
+           foreach($page_hashtags as $hashtag){
+                $count = 0;
+
+                $hashtag === $searched_term 
+                ? $count++
+                : $count = $count;
+
+                if( ($count === 1 ) && ( $hashtag === $searched_term )){ return $page ;}
+           }
+
+           return;
+        }
 
         $category_term = $page->snippet[$searched_meta][1];
 
@@ -23,6 +41,10 @@ if(isset($_GET['archive'])){
     });
 
     $pages = $filtered_pages;
+
+    $filter_upper_chars = strtoupper($searched_meta);
+    $filter_upper_chars = str_replace('_', ' ', $filter_upper_chars);
+    $filter = "<span>Filter:</span> <span>$filter_upper_chars</span> / <span>$searched_term</span>";
 
 }
 
@@ -75,7 +97,9 @@ $page_selection = array_slice($pages, $offset, $limit);
 
 <!-- HEADER -->
 <header>
-    <h1>A SIMPLE BLOG</h1>
+    <h1>
+        A SIMPLE BLOG
+    </h1>
 
     <p>
         <span>This blog has <?= $all_posts_count ?> posts </span>
@@ -89,7 +113,14 @@ $page_selection = array_slice($pages, $offset, $limit);
 
 <!-- MAIN / ARCHIVE -->
 <section class="main" role="main">
-    <h2>Page <?= $page_count ?> </h2>
+    <h2>
+        Page <?= $page_count ?>
+
+        <?php if(isset($filter)) :?>
+            <p><?= $filter ?></p>
+        <?php endif; ?>
+    </h2>
+
     <p>
 
         <?php if($page_count != $last_page) : ?>
@@ -251,7 +282,7 @@ $page_selection = array_slice($pages, $offset, $limit);
         <ul>
             <?php foreach($sub_categories as $sub_category){ ?>
                 <li>
-                    <a href="?archive=<?php echo urlencode($sub_category) ?>"><?= $sub_category ?></a>
+                    <a href="?archive=sub_category&term=<?php echo urlencode($sub_category) ?>"><?= $sub_category ?></a>
                 </li>
             <?php } ?>
         </ul>
@@ -263,7 +294,7 @@ $page_selection = array_slice($pages, $offset, $limit);
         <ul>
             <?php foreach($authors as $author){ ?>
                 <li>
-                    <a href="?archive=<?php echo urlencode($author) ?>"><?= $author ?></a>
+                    <a href="?archive=author&term=<?php echo urlencode($author) ?>"><?= $author ?></a>
                 </li>
             <?php } ?>
         </ul>
@@ -275,7 +306,7 @@ $page_selection = array_slice($pages, $offset, $limit);
         <ul>
             <?php foreach($creation_dates as $creation_date){ ?>
                 <li>
-                    <a href="?archive=<?php echo urlencode($creation_date) ?>"><?= $creation_date ?></a>
+                    <a href="?archive=creation_date&term=<?php echo urlencode($creation_date) ?>"><?= $creation_date ?></a>
                 </li>
             <?php } ?>
         </ul>
@@ -287,7 +318,7 @@ $page_selection = array_slice($pages, $offset, $limit);
         <ul>
             <?php foreach($hashtags as $hashtag){ ?>
                 <li>
-                    <a href="?archive=<?php echo urlencode($hashtag) ?>"><?= $hashtag ?></a>
+                    <a href="?archive=hashtags&term=<?php echo urlencode($hashtag) ?>"><?= $hashtag ?></a>
                 </li>
             <?php } ?>
         </ul>

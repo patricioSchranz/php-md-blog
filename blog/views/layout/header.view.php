@@ -10,7 +10,7 @@
 
     <style>
 
-        .page-container > header{
+        .page-container > header:not(.single-header){
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -62,7 +62,7 @@
             /* padding-left: 1rem; */
         }
 
-        .page-container > header{
+        .page-container > header:not(.single-header){
             width: 100%;
             /* text-align: center; */
             /* border: 1px solid black; */
@@ -124,6 +124,33 @@
             text-align: center;
             margin: 1rem auto;
             border: 1px solid  #415462;
+        }
+
+        .card-link{
+            text-decoration: initial;
+            cursor: pointer;
+        }
+
+        .single-header{
+            /* border: 1px solid black; */
+            width: 100%;
+            padding-bottom: 0;
+        }
+
+        .single-header img{
+            width: 100%;
+            height: 50svh;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .single-header h1 {
+            text-align: center;
+            margin-bottom: 0;
+        }
+
+        .single-header + main{
+            padding: 2rem;
         }
     </style>
 </head>

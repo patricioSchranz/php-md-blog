@@ -23,6 +23,16 @@ class Page {
         'title' =>' /<p class="title">(.*?)<\/p>/s'
     ];
 
+    protected $content_patterns = [
+        'author' => '#<p class="author">(.+?)</p>#',
+        'creation_date' => '/<p class="creation-date">(.*?)<\/p>/s',
+        'image' => '/<img class="image" (.*?)>/s',
+        'category' => '/<p class="category">(.*?)<\/p>/s',
+        'sub_category' => '/<p class="sub-category">(.*?)<\/p>/s',
+        'hashtags' => '/<ul class="hashtags">(.*?)<\/ul>/s',
+        'title' =>' /<p class="title">(.*?)<\/p>/s'
+    ];
+
     function __construct($md_content, $md_name, $converter, $id){
         $this->md_content = $md_content;
         $this->name = $md_name;
@@ -75,5 +85,9 @@ class Page {
         $this->snippet['id'] = $this->id;
 
         return $this->snippet;
+    }
+
+    public function get_content(){
+        $this->content = preg_replace($this->content_patterns, '', $this->html_content);
     }
 }

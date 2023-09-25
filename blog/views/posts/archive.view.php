@@ -2,7 +2,6 @@
 
 require __DIR__ . '/../layout/header.view.php';
 
-
 $filtered_pages;
 $filter;
 
@@ -141,6 +140,7 @@ $page_selection = array_slice($pages, $offset, $limit);
     <?php foreach($page_selection as $page) : ?>
 
         <!-- ARCHIVE CARD -->
+        <a href='<?php echo "{$current_url[0]}?single={$page->post_title}" ?>' class="card-link">
          <article class="archive-card">
 
            <!-- HEADER --> 
@@ -176,6 +176,7 @@ $page_selection = array_slice($pages, $offset, $limit);
                 <p class="page-card_excerpt"><?php echo $page->snippet['excerpt'][1] ?></p> 
             </div>
          </article>
+        </a>
 
     <?php endforeach; ?>
 

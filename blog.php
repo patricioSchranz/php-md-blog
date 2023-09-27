@@ -12,9 +12,9 @@ $pages = get_all_pages($pages_path, $md_converter);
 $snippets = get_all_snippets($pages);
 $blog_meta_datas = get_blog_metas($snippets);
 
+
 extract($blog_meta_datas);
 
-// dump($categories);
 
 isset($_GET["single"])
 ? require __DIR__ . '/blog/views/posts/single.view.php'

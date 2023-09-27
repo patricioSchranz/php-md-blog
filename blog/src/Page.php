@@ -90,4 +90,5 @@ class Page {
     public function get_content(){
         $this->content = preg_replace($this->content_patterns, '', $this->html_content);
     }
+    
 }

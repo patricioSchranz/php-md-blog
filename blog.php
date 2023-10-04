@@ -4,8 +4,10 @@ require __DIR__ . '/blog/src/functions.php';
 require __DIR__ . '/blog/src/converter_init.php';
 require __DIR__ . '/blog/src/Page.php';
 
+// $current_host = $_SERVER['HTTP_HOST'];
+
+// => the url is needed to built a link to a single post
 $current_url = explode("?", $_SERVER['REQUEST_URI']);
-$current_host = $_SERVER['HTTP_HOST'];
 
 $pages_path = __DIR__  . '/blog/content/markdowns';
 $pages = get_all_pages($pages_path, $md_converter);

@@ -14,7 +14,7 @@ foreach($pages as $page){
 
 
 if($searched_post === ''){
-   header("Location: $current_url[0]");
+   header("Location: $current_path[0]");
    die();
 }
 

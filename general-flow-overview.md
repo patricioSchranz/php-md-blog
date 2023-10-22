@@ -7,7 +7,7 @@
 
 ## blog.php
 
-- in eine Variable wird die aktuelle URL ohne Query String gespeichert => wird später benötigt um den Link zu einem einzelnen Post zu bauen
+- in eine Variable wird der aktuelle Pfad ohne Query String gespeichert => wird später benötigt um den Link zu einem einzelnen Post zu bauen
 
 ### get_all_pages($path, $mad_converter)
 

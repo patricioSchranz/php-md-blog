@@ -6,8 +6,8 @@ require __DIR__ . '/blog/src/Page.php';
 
 // $current_host = $_SERVER['HTTP_HOST'];
 
-// => the path is needed to built a link to a single post
-$current_url = explode("?", $_SERVER['REQUEST_URI']);
+// => the path is needed to built the link to a single post
+$current_path = explode("?", $_SERVER['REQUEST_URI']);
 
 $pages_path = __DIR__  . '/blog/content/markdowns';
 $pages = get_all_pages($pages_path, $md_converter);

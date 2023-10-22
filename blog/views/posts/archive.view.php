@@ -145,7 +145,7 @@ $page_selection = array_slice($pages, $offset, $limit);
     <?php foreach($page_selection as $page) : ?>
 
         <!-- ARCHIVE CARD -->
-        <a href='<?php echo "{$current_url[0]}?single={$page->post_title}" ?>' class="card-link">
+        <a href='<?php echo "{$current_path[0]}?single={$page->post_title}" ?>' class="card-link">
          <article class="archive-card">
 
            <!-- HEADER --> 

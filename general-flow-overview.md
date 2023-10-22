@@ -2,7 +2,7 @@
 
 ## index.php
 
-- die aktuelle URL wird ausgelesen, der Query String , so wie "index.php" werden davon entfernt
+- die aktuelle URL wird ausgelesen, der Query String , so wie "index.php" werden davon entfernt => übrig bleibt die Domain
 - es wird auf die Blog Seite weitergeleitet
 
 ## blog.php

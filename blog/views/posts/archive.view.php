@@ -18,10 +18,15 @@ if(isset($_GET['archive'])){
         if($searched_meta === 'hashtags'){
            $page_hashtags = $page->snippet[$searched_meta][1];
 
-           dump($page_hashtags);
+        //    dump($page_hashtags);
+        //    dump($searched_term);
 
            foreach($page_hashtags as $hashtag){
                 $count = 0;
+
+                $hashtag = trim(str_replace('#', '', $hashtag));
+
+                // dump($hashtag);
 
                 $hashtag === $searched_term 
                 ? $count++

@@ -38,6 +38,7 @@ if(isset($_GET['archive'])){
            return;
         }
 
+
         $category_term = $page->snippet[$searched_meta][1];
 
         if($category_term === $searched_term){  return $page; }
@@ -48,7 +49,7 @@ if(isset($_GET['archive'])){
 
     $filter_upper_chars = strtoupper($searched_meta);
     $filter_upper_chars = str_replace('_', ' ', $filter_upper_chars);
-    $filter = "<span>Filter:</span> <span>$filter_upper_chars</span> / <span>$searched_term</span>";
+    $filter = "<span>Filter:</span> <span>{$filter_upper_chars}</span> / <span>{$searched_term}</span>";
 
 }
 

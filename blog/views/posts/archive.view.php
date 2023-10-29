@@ -170,7 +170,7 @@ $page_selection = array_slice($pages, $offset, $limit);
             </header>
 
 
-            <!-- EXCERPT -->
+            <!-- EXCERPT & IMAGE -->
             <div class="page-card_preview">
 
             <?php if(isset($page->snippet['image'][0]) ) :?>

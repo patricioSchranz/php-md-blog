@@ -50,5 +50,14 @@
 ### condition - special archive or all posts
 
 - es wird überprüft ob ein Query String, mit einem Bereich und einem Begriff, vorhanden ist => aus dem Array von allen Seiten werden die passenden Einträge gefiltert
-- wird nach einem Hashtag gesucht, wird über das Hashtag Array einer Seite iteriert und dabei zum einen überprüft ob der gesuchte Hashtag gesucht ist und zum anderen wird gezählt wie oft der Hashtag vorkommt => nur wenn bei Count = 1 wird die Seite returnt
+- wird nach einem Hashtag gesucht, wird über das Hashtag Array einer Seite iteriert und dabei zum einen überprüft ob der gesuchte Hashtag vorhanden ist und zum anderen wird gezählt wie oft der Hashtag vorkommt => nur bei Count = 1 wird die Seite returnt
 - es wird eine HTML Line mit den Informationen zum aktuellen Filter erzeugt
+
+### pagination
+
+#### get the count of pages
+
+#### show the right extract of the pages
+
+#### create the page links
+

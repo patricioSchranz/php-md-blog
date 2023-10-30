@@ -45,6 +45,7 @@
 - mit Hilfe der $_GET Variable wird überprüft ob eine spezielle Seite gesucht wird oder ob das Archiv geöffnet werden soll
 
 
+
 ## archive.view.php
 
 ### condition - special archive or all posts
@@ -55,9 +56,33 @@
 
 ### pagination
 
-#### get the count of pages
+#### get the count of pagination pages
 
-#### show the right extract of the pages
+- die Anzahl der zuvor selektierten Pages wird durch die Anzahl an Posts die man per Seite anzeigen will dividiert
 
 #### create the page links
 
+- es wird ein Limit an Posts per Page ($limit) festgelegt
+- es wird ein Limit an Seitenlinks ($pagination_limit), welche man generieren will,  festgelegt 
+- in einem for Loop werden die Links generiert, solange das festgelegte Pagination Limit nicht überstiegen wird
+- die Zählervariable($i) des Loops, wird immer um das Limit an Posts ($limit) erhöht
+- innerhalb des Loops wird eine Variable "$pagination_number" verwendet um  den Content für die Pagination Link zu erzeugen
+
+#### show the right extract of the pages array
+
+- benötigt wird das Limit an Post per Page so wie ein Offset, von welchem aus die Posts/Seiten, aus dem Seiten Array genommen werden
+- bei Seite 1 startet das Offset mit 0
+- das benötigte Offset erhält man folgendermaßen => 
+    - die aktuelle Archiv Seite wird aus der URL gelesen
+    - diese wird mit dem Limit multipliziert
+    - vom Ergebnis wird das Limit substrahiert
+- die Posts die anzuzeigen sind werden mit array_slice() aus dem Seiten Array substrahiert
+- noch bevor die Posts substrahiert werden, wird das Seiten Array mit usort() nach Datum sortiert
+
+
+### single.view.php
+
+- über die URL wird der Titel des gesuchten Posts ausgelesen
+- im Seiten Array wird der gesuchte Post geholt (= Objekt)
+- vom selektierten Post wird der Content aufgerufen
+- falls der gesuchte Post nicht gefunden wird, wird auch die Archiv Seite weitergeleitet

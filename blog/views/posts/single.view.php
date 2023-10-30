@@ -15,7 +15,7 @@ foreach($pages as $page){
 
 if($searched_post === ''){
    header("Location: $current_path[0]");
-   die();
+   die('No post found');
 }
 
 ?>

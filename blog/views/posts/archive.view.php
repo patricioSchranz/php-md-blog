@@ -133,8 +133,9 @@ $page_selection = array_slice($pages, $offset, $limit);
 
             <?php else : ?>
                 <?php 
-                    $posts_per_page = count($pages) / (count($pages) / $limit);
+                    $posts_per_page = $selected_posts_count / ( $selected_posts_count / $limit);
                     $last_page_posts_count = $selected_posts_count - $posts_per_page * ($page_count - 1);
+
                 ?>
 
                 <strong>Post <?= $offset + 1 ?> - <?= $offset + $last_page_posts_count ?></strong>
@@ -189,6 +190,7 @@ $page_selection = array_slice($pages, $offset, $limit);
     <!-- PAGINATION --> 
     <div class="pagination-container">
 
+        <!-- previous link -->
         <?php if ($page_count > 1) : ?>
 
             <?php if(count($_GET) < 2) : ?>
@@ -209,24 +211,35 @@ $page_selection = array_slice($pages, $offset, $limit);
         <?php endif; ?>
         
 
+        <!-- numbered links -->
         <?php 
 
             $loop_count = 1;
+
+            /**
+             * $limit => posts per page
+             * $pagination_limit => limit of numbered links
+             * $pagination_number => number of the page for which a link should be created
+             */
 
        
             for($i = 1; $i < count($pages); $i+= $limit){
 
                 if($loop_count <= $pagination_limit){
 
+                    // no filter is active
                     if(count($_GET) < 2) {
                         $query_string = "page=$pagination_number"; 
                     }
+
+                    // a filter is active
                     else{
                         $params  = array_merge( $_GET, array( 'page' => $pagination_number ) ); 
                         $query_string = http_build_query( $params ); 
                     }
 
                    
+                    // => mark the link of the last page
                     if($pagination_number == $last_page){
                         echo "<a href='?$query_string' class='last-pagination-elem'>$pagination_number</a>";
                     }
@@ -252,6 +265,7 @@ $page_selection = array_slice($pages, $offset, $limit);
             }
         ?>
 
+        <!-- next link -->
         <?php if ($page_count < (count($pages) / $limit) ) : ?>
             <a href="?page=<?php echo $page_count + 1; ?>">Next</a>
 
